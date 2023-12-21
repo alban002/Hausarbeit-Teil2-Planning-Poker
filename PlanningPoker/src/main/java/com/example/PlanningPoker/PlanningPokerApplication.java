@@ -9,6 +9,7 @@ public class PlanningPokerApplication {
 	public static void main(String[] args) {
 		//HALLO TOLGA
 		//Hallo Aleksej
+		//Hallo Artur
 		SpringApplication.run(PlanningPokerApplication.class, args);
 	}
 
