@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlanningPokerApplication {
 
 	public static void main(String[] args) {
+		//HALLO TOLGA
 		SpringApplication.run(PlanningPokerApplication.class, args);
 	}
 
