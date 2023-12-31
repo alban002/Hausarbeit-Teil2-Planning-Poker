@@ -1,16 +1,15 @@
 package com.example.PlanningPoker;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication;
 
 @SpringBootApplication
 public class PlanningPokerApplication {
 
 	public static void main(String[] args) {
-		//HALLO TOLGA
-		//Hallo Aleksej
-		//Hallo Artur
+		
 		SpringApplication.run(PlanningPokerApplication.class, args);
+		
 	}
 
 }
