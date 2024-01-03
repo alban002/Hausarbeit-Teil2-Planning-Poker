@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class PlanningPokerSessionEntity {
 
 	@Id
-	int id;
+	int planningPokerSessionId;
 	LocalDateTime sessionStartZeitpunkt;
 	boolean active = false;
 	
@@ -18,7 +18,7 @@ public class PlanningPokerSessionEntity {
 		
 	}
 	public PlanningPokerSessionEntity(PlanningPokerSessionId planningPokerSessionId, LocalDateTime sessionStartZeitpunkt, boolean active) {
-		this.id = planningPokerSessionId.getPlanningPokerSessionId();
+		this.planningPokerSessionId = planningPokerSessionId.getPlanningPokerSessionId();
 		this.sessionStartZeitpunkt = sessionStartZeitpunkt;
 		this.active = active;
 		
@@ -44,27 +44,27 @@ public class PlanningPokerSessionEntity {
 	}
 	
 	
-	public int getId() {
-		return id;
+	public int getPlanningPokerSessionIdId() {
+		return planningPokerSessionId;
 	}
 
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setPlanningPokerSessionId(int id) {
+		this.planningPokerSessionId = id;
 	}
 
 
 
 	public PlanningPokerSessionEntity(PlanningPokerSession pks) {
-		this.id = pks.getPlanningPokerSessionId().getPlanningPokerSessionId();
+		this.planningPokerSessionId = pks.getPlanningPokerSessionId().getPlanningPokerSessionId();
 		this.sessionStartZeitpunkt = pks.getSessionStartZeitpunkt();
-		this.active = pks.isRunning();
+		this.active = pks.isActive();
 
 	}
 	
-	public PlanningPokerSessionEntity toDomain() {
-		return new PlanningPokerSessionEntity (new PlanningPokerSessionId (id), sessionStartZeitpunkt, active);
+	public PlanningPokerSession toDomain() {
+		return new PlanningPokerSession (new PlanningPokerSessionId (planningPokerSessionId), sessionStartZeitpunkt, active);
 		
 	}
 	

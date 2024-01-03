@@ -4,12 +4,23 @@ import java.time.ZoneOffset;
 
 public class PlanningPokerSession {
 	
+	PlanningPokerSessionId planningPokerSessionId;
 	LocalDateTime sessionStartZeitpunkt;
 	boolean active;
 	
-	public PlanningPokerSession(LocalDateTime sessionStartZeitpunkt, boolean active) {
+	public PlanningPokerSession(PlanningPokerSessionId planningPokerSessionId, LocalDateTime sessionStartZeitpunkt, boolean active) {
+		this.planningPokerSessionId =planningPokerSessionId;
 		this.sessionStartZeitpunkt = sessionStartZeitpunkt;
 		this.active = active;
+	}
+	
+
+	public PlanningPokerSessionId getPlanningPokerSessionId(){
+		return planningPokerSessionId;
+	}
+	
+	public void setPlanningPokerSessionId(PlanningPokerSessionId planningPokerSessionId) {
+		this.planningPokerSessionId = planningPokerSessionId;
 	}
 
 	public LocalDateTime getSessionStartZeitpunkt() {
@@ -20,7 +31,7 @@ public class PlanningPokerSession {
 		this.sessionStartZeitpunkt = sessionStartZeitpunkt;
 	}
 
-	public boolean isRunning() {
+	public boolean isActive() {
 		return active;
 	}
 

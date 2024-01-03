@@ -69,7 +69,7 @@ public class UserStoryEntity {
 	}
 	
 	public UserStory toDomain() {
-		return new UserStory (new UserStoryId (id), description, title, estimation);
+		return new UserStory (new UserStoryId (userStoryId), description, title, estimation);
 		
 	}
 	
