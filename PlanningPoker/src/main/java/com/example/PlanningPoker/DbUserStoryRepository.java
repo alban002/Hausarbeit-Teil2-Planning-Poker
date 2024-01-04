@@ -41,7 +41,6 @@ public class DbUserStoryRepository implements UserStoryRepository {
 	        }
 	}
 
-
 	@Override
 	public void save(UserStory userStory) {
 		jdbcUserStoryEntityRepository.save(new UserStoryEntity(userStory));
