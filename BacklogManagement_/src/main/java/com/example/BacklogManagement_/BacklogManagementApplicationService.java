@@ -4,27 +4,58 @@ import java.util.Collection;
 
 public class BacklogManagementApplicationService implements BacklogManagementService {
 
+//Implementation ist  DbUserStoryRepository
 public UserStoryRepository userStoryRepository;
 	
 	public BacklogManagementApplicationService(UserStoryRepository userStoryRepository) {
         this.userStoryRepository = userStoryRepository;
     }
-	/*
+	
 	@Override
-	public boolean artikelEinlagern(int id, int menge) {
+	public boolean userStoryUpdaten(UserStory updatedUserStory) {
 		
-		Artikel artikel = artikelRepository.findById(new ArtikelId(id));
+		UserStory userStoryDB = userStoryRepository.findById(updatedUserStory.getUserStoryId());
 		
- 		if (artikel == null)
+ 		if (userStoryDB == null)
+ 		{
  			return false;
- 		else {
- 			artikel.einlagern(menge);
- 			artikelRepository.save(artikel);
- 			 		
- 			return true;
+ 			
  		}
+ 		else {
+ 			userStoryRepository.save(updatedUserStory);
+			return true; 		
+			}
 	}
+	
+	@Override
+	public boolean userStoryErstellen(UserStory newUserStory) {
+			
+	 		userStoryRepository.save(newUserStory);
+			return true; 		
+		}
+
+	@Override
+	public UserStory getUserStoryById(int id) {
+		UserStory userStory = userStoryRepository.findById(new UserStoryId(id));
+ 		return userStory;
+	}
+
+	@Override
+	public boolean deleteUserStoryById(int id) {
+		UserStory userStoryDB = userStoryRepository.findById(new UserStoryId(id));
 		
+ 		if (userStoryDB == null)
+ 		{
+ 			return false;
+ 			
+ 		}
+ 		else {
+ 			userStoryRepository.deleteById(id);
+			return true;
+			}
+	}
+	
+	/*
 	@Override
 	public boolean artikelAuslagern(int id, int menge) {
 		

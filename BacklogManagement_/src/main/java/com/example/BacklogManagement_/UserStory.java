@@ -1,5 +1,8 @@
 package com.example.BacklogManagement_;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserStory {
 	
 	UserStoryId userStoryId;
@@ -7,10 +10,20 @@ public class UserStory {
 	String title;
 	int estimation;
 	
-
-	
-	public UserStory(UserStoryId userStoryId, String description, String title, int estimation) {
+	//Jackson-Annotationen verwenden, um dem Deserialisierer mitzuteilen, welchen Konstruktor er verwenden soll
+	@JsonCreator
+	public UserStory(@JsonProperty("userStoryId") UserStoryId userStoryId, 
+			@JsonProperty("description") String description,
+			@JsonProperty("title") String title,
+			@JsonProperty("estimation") int estimation) {
 		this.userStoryId = userStoryId;
+		this.description = description;
+		this.title = title;
+		this.estimation = estimation;
+	}
+	
+	public UserStory( String description, String title, int estimation) {
+		this.userStoryId = null;
 		this.description = description;
 		this.title = title;
 		this.estimation = estimation;

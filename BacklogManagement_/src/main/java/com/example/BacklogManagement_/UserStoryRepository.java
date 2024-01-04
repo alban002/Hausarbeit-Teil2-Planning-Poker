@@ -4,5 +4,6 @@ public interface UserStoryRepository {
 	
 	public UserStory findById(UserStoryId userStoryId);
 	public void save(UserStory userStory);
+	public void deleteById(int userStoryDBId);
 
 }

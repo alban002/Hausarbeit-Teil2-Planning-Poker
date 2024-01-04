@@ -62,7 +62,9 @@ public class UserStoryEntity {
 
 
 	public UserStoryEntity (UserStory userStory) {
-		this.userStoryId = userStory.getUserStoryId().getId();
+		if (userStory.getUserStoryId() != null) {
+			this.userStoryId = userStory.getUserStoryId().getId();
+		}
 		this.description = userStory.getDescription();
 		this.title = userStory.getTitle();
 		this.estimation = userStory.getEstimation();

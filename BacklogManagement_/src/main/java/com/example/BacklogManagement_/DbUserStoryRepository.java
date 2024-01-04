@@ -47,6 +47,12 @@ public class DbUserStoryRepository implements UserStoryRepository {
 
 	}
 
+
+	@Override
+	public void deleteById(int userStoryDBid) {
+		jdbcUserStoryEntityRepository.deleteById(userStoryDBid);
+	}
+
 	
 
 }
