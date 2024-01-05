@@ -74,7 +74,7 @@ public class BacklogManagementController {
 	    try {
 	        UserStory userStory = backlogManagementService.getUserStoryById(id);
 	        if (userStory != null) {
-	            return ResponseEntity.ok("UserStory mit Id= "+ id + "heisst" + userStory.getTitle() + " und wird mit " + userStory.getEstimation() +"geschaetzt");
+	            return ResponseEntity.ok("UserStory mit Id= "+ id + " heisst " + userStory.getTitle() + " und wurde mit " + userStory.getEstimation() +" geschaetzt");
 	        } else {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("UserStory mit ID: " + id + " exisitiert nicht");
 	        }
@@ -102,28 +102,4 @@ public class BacklogManagementController {
 	                             .body(errorMessage);
 	    }
 	}
-
-
-
-	
-
-
-	
-	//curl -X GET http://localhost:8090/lager/artikel/1000
-	
-	/*@GetMapping("/artikel/{id}")
-	public String bestandErmitteln(@PathVariable int id) {	
-	    	return lagerService.bestandErmitteln(id)+"";
-	}
-	
-	
-	@PutMapping("/artikel/{id}/{menge}")
-	public String einlagern(@PathVariable int id, @PathVariable int menge) {
-		if (lagerService.artikelEinlagern( id, menge))
-				return "Einlagerung erfolgreich!";
-			else
-				return "Einlagerung nicht erfolgreich!";
-	}*/
-	    
-
 }

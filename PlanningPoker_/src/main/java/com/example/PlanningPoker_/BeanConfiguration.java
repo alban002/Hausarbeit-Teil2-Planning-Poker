@@ -1,10 +1,6 @@
 package com.example.PlanningPoker_;
 
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,14 +8,9 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 	
 	 @Bean
-	 PlanningPokerService planningPokerService(UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService) {
-	        return new PlanningPokerApplicationService(userStoryRepository, planningPokerDomainService);
+	 PlanningPokerService planningPokerService(UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService, MessageQueue messageQueue) {
+	        return new PlanningPokerApplicationService(userStoryRepository, planningPokerDomainService, messageQueue);
 	 }
-	 
-	 /*@Bean
-	 PlanningPokerDomainService planningPokerDomainService(ArtikelRepository artikelRepository, MessageQueue messageQueue) {
-	        return new ShopDomainService(artikelRepository, messageQueue);
-	 }*/
 	 
 	 @Bean
 	 PlanningPokerDomainService planningPokerDomainService() {
@@ -31,8 +22,8 @@ public class BeanConfiguration {
 	        return new DbUserStoryRepository(jdbcUserStoryEntityRepository);
 	 }
 	 
-	 /*@Bean
+	 @Bean
 	 MessageQueue messageQueue(AmqpTemplate amqpTemplate) {
-		 return new QueueAdapter(amqpTemplate);
-	 }*/
+		 return new MessageQueueAdapter(amqpTemplate);
+	 }
 }

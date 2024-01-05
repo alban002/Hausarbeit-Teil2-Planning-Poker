@@ -23,6 +23,7 @@ public UserStoryRepository userStoryRepository;
  		}
  		else {
  			userStoryRepository.save(updatedUserStory);
+ 			System.out.println("USER STORY mit ID" + updatedUserStory.getUserStoryId().getId()+ "wurde veraentert in Datenbank");
 			return true; 		
 			}
 	}
@@ -31,6 +32,7 @@ public UserStoryRepository userStoryRepository;
 	public boolean userStoryErstellen(UserStory newUserStory) {
 			
 	 		userStoryRepository.save(newUserStory);
+	 		
 			return true; 		
 		}
 

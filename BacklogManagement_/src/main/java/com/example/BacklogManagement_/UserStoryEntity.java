@@ -5,7 +5,13 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("USERSTORY")
 public class UserStoryEntity {
-
+	
+	/*CREATE TABLE USERSTORY (
+		    USER_STORY_ID INT AUTO_INCREMENT PRIMARY KEY,
+		    DESCRIPTION VARCHAR(255),
+		    TITLE VARCHAR(255),
+		    ESTIMATION INT
+		); */
 	@Id
 	int userStoryId; //Spalte in Datenbank muss USER_STORY_ID genannt werden und AUTO_INCREMENT aktiviert sein
 	String description;
