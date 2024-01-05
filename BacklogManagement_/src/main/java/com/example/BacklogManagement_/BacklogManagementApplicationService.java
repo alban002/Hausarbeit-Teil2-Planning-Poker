@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class BacklogManagementApplicationService implements BacklogManagementService {
 
-//Implementation ist  DbUserStoryRepository
+//Genutzte Implementation ist  DbUserStoryRepository
 public UserStoryRepository userStoryRepository;
 	
 	public BacklogManagementApplicationService(UserStoryRepository userStoryRepository) {
