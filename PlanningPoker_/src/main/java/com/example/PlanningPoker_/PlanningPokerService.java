@@ -2,7 +2,7 @@ package com.example.PlanningPoker_;
 
 public interface PlanningPokerService {
 	
-	public boolean endgueltigeEstimationFestlegen(int userStoryId, int finalEstimation);
+	public FestlegungsversuchResult endgueltigeEstimationFestlegen(int userStoryId, int finalEstimation);
 	
 
 

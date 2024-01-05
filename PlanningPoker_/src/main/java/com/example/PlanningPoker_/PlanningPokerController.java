@@ -2,6 +2,8 @@ package com.example.PlanningPoker_;
 
 import java.util.Collection;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,28 +25,31 @@ public class PlanningPokerController {
 		this.planningPokerService = planningPokerService;
 	}
 	
-	@PostMapping("/endgueltigeEstimationById/{userStoryId}")
-	public String endgueltigeEstimationById(
-			//Kombination von Path- und Query-Variable
-	    @PathVariable int userStoryId,
-	    @RequestParam("finalEstimationValue") int finalEstimationValue) {
-	    
-	    
-	    if (planningPokerService.endgueltigeEstimationFestlegen(userStoryId, finalEstimationValue))
-	        return "Endueltige Estimation wurde auf " + finalEstimationValue + " festgelegt";
-	    else
-	        return "Keine Berechtigung zum Festlegen einer endgueltigen Estimation";
-	}
-
+	//curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/1?finalEstimationValue=3"
 	
-/*
-	@PostMapping(value = "/bestellung", consumes = {"application/json"})
-	public String bestellen(@RequestBody Collection<BestellItemTO> itemliste) {
-		
-		if (shopService.bestellen(itemliste))
-			return "Bestellung erfolgreich";
-		else
-			return "Bestellung nicht erfolgreich";  	
-	 }*/
+	@PostMapping("/endgueltigeEstimationById/{userStoryId}")
+	public ResponseEntity<String> endgueltigeEstimationById(
+	        @PathVariable int userStoryId,
+	        @RequestParam("finalEstimationValue") int finalEstimationValue) {
+	    
+	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegen(userStoryId, finalEstimationValue);
+	    
+	    switch (result) {
+	        case SUCCESS:
+	            return ResponseEntity.ok("Endgültige Estimation wurde auf " + finalEstimationValue + " festgelegt");
+	        case PERMISSION_DENIED:
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+	                                 .body("Keine Berechtigung zum Festlegen einer endgueltigen Estimation");
+	        case USER_STORY_NOT_FOUND:
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("UserStory mit ID " + userStoryId + " nicht gefunden");
+	        case OTHER_ERROR:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	        default:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	    }
+	}
 
 }

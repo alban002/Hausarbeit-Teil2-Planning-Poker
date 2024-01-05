@@ -3,14 +3,14 @@ package com.example.PlanningPoker_;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("USERSTORY")
+@Table("USERSTORYPP")
 public class UserStoryEntity {
 
 	@Id
-	int userStoryId;
+	int userStoryId; //Spalte in Datenbank muss USER_STORY_ID genannt werden und AUTO_INKREMENT aktiviert werden
 	String description;
 	String title;
-	int finalEstimation;
+	int finalEstimation; //Hier ebenfalls mit Unterstrich FINAL_ESTIMATION 
 	
 	public UserStoryEntity() {
 		

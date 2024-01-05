@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class UserStoryEntity {
 
 	@Id
-	int userStoryId;
+	int userStoryId; //Spalte in Datenbank muss USER_STORY_ID genannt werden und AUTO_INCREMENT aktiviert sein
 	String description;
 	String title;
 	int estimation;

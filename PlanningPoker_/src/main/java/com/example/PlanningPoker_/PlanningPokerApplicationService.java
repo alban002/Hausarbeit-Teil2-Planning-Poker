@@ -1,13 +1,7 @@
 package com.example.PlanningPoker_;
 
-import java.util.Collection;
-import java.util.Random;
-
-
-
 public class PlanningPokerApplicationService implements PlanningPokerService{
 
-	
 	private UserStoryRepository userStoryRepository;
 	private PlanningPokerDomainService planningPokerDomainService;
 	
@@ -15,22 +9,29 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 		this.userStoryRepository = userStoryRepository;
 		this.planningPokerDomainService = planningPokerDomainService;
 	}
-
+	
 	@Override
-	public boolean endgueltigeEstimationFestlegen(int userStoryId, int finalEstimation) {
-		boolean istBerechtigt= planningPokerDomainService.berechtigungPruefen();
-		
-		if(istBerechtigt) {
-			//Prüfen ob eine solche Story existiert
-			//lediglich den wert von finalestimation ändern
-			//asynchroneKommunikation zum anderen Service
-			
-			return true;
-		}else {
-			return false;
-		}
-		
+	public FestlegungsversuchResult endgueltigeEstimationFestlegen(int userStoryId, int finalEstimation) {
+	    boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen();
+
+	    if (!istBerechtigt) {
+	        return FestlegungsversuchResult.PERMISSION_DENIED;
+	    }
+
+	    UserStory userStory = userStoryRepository.findById(new UserStoryId(userStoryId));
+
+	    if (userStory == null) {
+	        return FestlegungsversuchResult.USER_STORY_NOT_FOUND;
+	    }
+
+	    userStory.setFinalEstimation(finalEstimation);
+	    userStoryRepository.save(userStory);
+
+	    //asynchroneKommunikation zum anderen Service
+
+	    return FestlegungsversuchResult.SUCCESS;
 	}
+
 
 
 	

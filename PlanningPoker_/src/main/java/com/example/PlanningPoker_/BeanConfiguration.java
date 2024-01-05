@@ -12,22 +12,27 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 	
 	 @Bean
-	 ShopService shopService(ArtikelRepository artikelRepository, ShopDomainService shopDomainService) {
-	        return new ShopApplicationService(artikelRepository, shopDomainService);
+	 PlanningPokerService planningPokerService(UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService) {
+	        return new PlanningPokerApplicationService(userStoryRepository, planningPokerDomainService);
 	 }
 	 
-	 @Bean
-	 ShopDomainService bestandDomainService(ArtikelRepository artikelRepository, MessageQueue messageQueue) {
+	 /*@Bean
+	 PlanningPokerDomainService planningPokerDomainService(ArtikelRepository artikelRepository, MessageQueue messageQueue) {
 	        return new ShopDomainService(artikelRepository, messageQueue);
+	 }*/
+	 
+	 @Bean
+	 PlanningPokerDomainService planningPokerDomainService() {
+	        return new PlanningPokerDomainService();
 	 }
 	 
 	 @Bean
-	 ArtikelRepository artikelRepository(JdbcArtikelEntityRepository jdbcArtikelEntityRepository) {
-	        return new DbArtikelRepository(jdbcArtikelEntityRepository);
+	 UserStoryRepository userStoryRepository(JdbcUserStoryEntityRepository jdbcUserStoryEntityRepository) {
+	        return new DbUserStoryRepository(jdbcUserStoryEntityRepository);
 	 }
 	 
-	 @Bean
+	 /*@Bean
 	 MessageQueue messageQueue(AmqpTemplate amqpTemplate) {
 		 return new QueueAdapter(amqpTemplate);
-	 }
+	 }*/
 }

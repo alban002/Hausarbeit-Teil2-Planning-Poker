@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class PlanningPokerDomainService {
 	
-	UserStoryRepository userStoryRepository;
+	//UserStoryRepository userStoryRepository;
 	//MessageQueue messageQueue;
 	
-	public PlanningPokerDomainService (UserStoryRepository userStoryRepository/*, MessageQueue messageQueue*/) {
-		this.userStoryRepository = userStoryRepository;
+	public PlanningPokerDomainService (/*UserStoryRepository userStoryRepository, MessageQueue messageQueue*/) {
+		//this.userStoryRepository = userStoryRepository;
 		//this.messageQueue = messageQueue;
 	}
 	//HIER ZUFÄLLIG ENTSCHEIDEN, OB DIE FINALESTIMATION COTROOLERAUFRUF BERECHTIGT WAR PO ODER NORMAL
@@ -18,6 +18,8 @@ public class PlanningPokerDomainService {
 	    //Gibt zu 50% true und zu 50% false zurueck
 	    return random.nextBoolean();
 	}
+	
+	
 	
 	/*public boolean bestandArtikelAktualisieren (Bestellung bestellung) {
 		
