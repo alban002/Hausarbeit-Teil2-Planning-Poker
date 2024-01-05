@@ -74,7 +74,7 @@ public class BacklogManagementController {
 	    try {
 	        UserStory userStory = backlogManagementService.getUserStoryById(id);
 	        if (userStory != null) {
-	            return ResponseEntity.ok("UserStory mit Id= "+ id + "heisst" + userStory.getTitle() + " und wird mit " + userStory.getEstimation() +"geschaetzt");
+	            return ResponseEntity.ok("UserStory mit Id= "+ id + " heisst " + userStory.getTitle() + " und wurde mit " + userStory.getEstimation() +" geschaetzt");
 	        } else {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("UserStory mit ID: " + id + " exisitiert nicht");
 	        }

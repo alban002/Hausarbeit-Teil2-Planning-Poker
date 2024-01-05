@@ -10,12 +10,14 @@ import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
 
 
 public class BMEventListener {
 
-	private static final String MY_QUEUE_NAME = "myQueue";
+	private static final String MY_QUEUE_NAME = "ppQueue";
 
 	private BacklogManagementService backlogManagementService;
 
@@ -23,42 +25,26 @@ public class BMEventListener {
 		this.backlogManagementService = backlogManagementService;
 	}
 	
-	/*@RabbitListener(queues = MY_QUEUE_NAME)
+	@RabbitListener(queues = MY_QUEUE_NAME)
 	 public void listen(String message) {
-		 System.out.println("DEBUGINFO Nachricht: "+ message);
-		 
-		 String parts[] = message.split(Pattern.quote("/"));
-		 
-		 String event = parts[0];
-		 String payload = parts[1];
-		 
-		 System.out.println(event);
-		 System.out.println(payload);
+		 System.out.println("Geänderte UserStory ist angekommen: "+ message);
 		 
 		 try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		 
-		 if (event.equals("bestellungAbgeschlossen")) {
+		        ObjectMapper mapper = new ObjectMapper();
+		        JsonNode userStoryNode = mapper.readTree(message);
+		        //Werte aus dem JSON-Objekt extrahieren
+		        
+		        UserStoryId userStoryId = new UserStoryId(userStoryNode.get("userStoryId").get("userStoryId").asInt());
+		        String title = userStoryNode.get("title").asText();
+		        String description = userStoryNode.get("description").asText();
+		        int finalEstimation = userStoryNode.get("finalEstimation").asInt();
+		        UserStory angekommeneUserStory= new UserStory(userStoryId, title, description, finalEstimation);
 
-			 ObjectMapper mapper = new ObjectMapper();
-			 BestellItemTO[] bestelllisteTOArray = null;
-			try {
-				bestelllisteTOArray = mapper.readValue(payload, BestellItemTO[].class);
-			} catch (JsonProcessingException e) {
-				// die folgende Meldung gehört eigentlich in ein Log.
-				System.out.println("Interner Fehler bei der Eventverarbeitung");
-				e.printStackTrace();
-			}
-			 Collection<BestellItemTO> bestelllisteTO = Arrays.asList(bestelllisteTOArray);
-			
-			 if (! lagerService.bestellungVerarbeiten(bestelllisteTO))
-				// die folgende Meldung gehört eigentlich in ein Log
-				System.out.println("Verarbeitung der Bestellung fehlgeschlagen!"); 
-				
-		 }
-	 }*/
+		        backlogManagementService.userStoryUpdaten(angekommeneUserStory);
+		        
+		    } catch (Exception e) {
+		        System.out.println("Fehler bei der Deserialisierung der User Story");
+		        e.printStackTrace();
+		    }
+	}
 }

@@ -51,5 +51,4 @@ public class PlanningPokerController {
 	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
 	    }
 	}
-
 }

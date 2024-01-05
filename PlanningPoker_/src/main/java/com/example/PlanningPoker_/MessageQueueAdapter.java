@@ -17,7 +17,7 @@ public class MessageQueueAdapter implements MessageQueue{
     	this.amqpTemplate = amqpTemplate;
     }
    
-    public boolean senden(Object domainEvent) {
+    public boolean sendenRabbitMQ(Object domainEvent) {
     	
     	String payload = "";
     	

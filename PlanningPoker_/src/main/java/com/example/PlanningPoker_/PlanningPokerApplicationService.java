@@ -30,7 +30,7 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	    userStoryRepository.save(userStory);
 
 	    //asynchroneKommunikation zum anderen Service
-	    messageQueue.senden(userStory);
+	    messageQueue.sendenRabbitMQ(userStory);
 
 	    return FestlegungsversuchResult.SUCCESS;
 	}
