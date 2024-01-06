@@ -35,4 +35,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	    return FestlegungsversuchResult.SUCCESS;
 	}
 
+	@Override
+	public boolean userStoryTabelleErstellen() {
+		return userStoryRepository.createUserStoryTable();
+	}
+
 }

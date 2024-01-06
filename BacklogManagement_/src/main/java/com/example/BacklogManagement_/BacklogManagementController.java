@@ -25,11 +25,16 @@ public class BacklogManagementController {
 		this.backlogManagementService = backlogManagementService;
 	}
 	
-	//curl -X GET http://localhost:8100/backlogManagement/userStory/4
-	@GetMapping("/userStory/{id}")
-	public ResponseEntity<String> test(@PathVariable int id) {
-	    String responseMessage = id + " NUR EIN TEST-CONTROLLER";
-	    return ResponseEntity.ok(responseMessage);
+	//curl -X POST http://localhost:8100/backlogManagement/createUserStoryTable
+
+	@PostMapping("/createUserStoryTable")
+	public ResponseEntity<String> createUserStoryTable() {
+		try{
+			backlogManagementService.userStoryTabelleErstellen();
+			return ResponseEntity.ok("Tabelle erfolgreich erstellt oder bereits vorhanden");
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error beim anlegen der UserStoryTabelle");
+		}
 	}
 
 	

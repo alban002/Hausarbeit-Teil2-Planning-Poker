@@ -31,4 +31,9 @@ public class DbUserStoryRepository implements UserStoryRepository {
 		jdbcUserStoryEntityRepository.save(new UserStoryEntity(userStory));
 
 	}
+
+	@Override
+	public boolean createUserStoryTable() {
+		return jdbcUserStoryEntityRepository.createTable();
+	}
 }

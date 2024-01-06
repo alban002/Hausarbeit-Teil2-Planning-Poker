@@ -25,7 +25,18 @@ public class PlanningPokerController {
 		this.planningPokerService = planningPokerService;
 	}
 	
-	//curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/1?finalEstimationValue=3"
+	//curl -X POST http://localhost:8090/planningPoker/createUserStoryTable
+	@PostMapping("/createUserStoryTable")
+	public ResponseEntity<String> createUserStoryTable() {
+		try{
+			planningPokerService.userStoryTabelleErstellen();
+			return ResponseEntity.ok("Tabelle erfolgreich erstellt oder bereits vorhanden");
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error beim anlegen der UserStoryTabelle");
+		}
+	}
+	
+	//curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/1?finalEstimationValue=8"
 	
 	@PostMapping("/endgueltigeEstimationById/{userStoryId}")
 	public ResponseEntity<String> endgueltigeEstimationById(
