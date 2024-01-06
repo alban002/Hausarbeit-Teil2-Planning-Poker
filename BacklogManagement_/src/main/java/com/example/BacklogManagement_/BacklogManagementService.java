@@ -7,4 +7,5 @@ public interface BacklogManagementService {
 	public UserStory getUserStoryById(int id);
 	public boolean deleteUserStoryById(int id);
 	public boolean userStoryTabelleErstellen();
+	public void populateUserStoryTable();
 }

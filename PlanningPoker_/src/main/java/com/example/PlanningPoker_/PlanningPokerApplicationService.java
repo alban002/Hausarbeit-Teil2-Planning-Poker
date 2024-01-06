@@ -1,5 +1,7 @@
 package com.example.PlanningPoker_;
 
+
+
 public class PlanningPokerApplicationService implements PlanningPokerService{
 
 	private UserStoryRepository userStoryRepository;
@@ -38,6 +40,15 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	@Override
 	public boolean userStoryTabelleErstellen() {
 		return userStoryRepository.createUserStoryTable();
+	}
+	
+	public void populateUserStoryTable() {
+		UserStory userStory1 = new UserStory("ERSTEBeschreibung", "ERSTEBeschreibung", 2);
+		UserStory userStory2 = new UserStory("ZWEITEBeschreibung", "ZWEITEBeschreibung", 8);
+		UserStory userStory3 = new UserStory("DRITTEBeschreibung", "DRITTEBeschreibung", 9);
+		userStoryRepository.save(userStory1);
+		userStoryRepository.save(userStory2);
+		userStoryRepository.save(userStory3);
 	}
 
 }

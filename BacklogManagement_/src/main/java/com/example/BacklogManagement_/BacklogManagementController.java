@@ -36,6 +36,20 @@ public class BacklogManagementController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error beim anlegen der UserStoryTabelle");
 		}
 	}
+	
+	//curl -X POST http://localhost:8100/backlogManagement/fillUpUserStoryTable
+	@PostMapping("/fillUpUserStoryTable")
+	public ResponseEntity<String> fillUpUserStoryTable() {
+		try{
+
+	
+		backlogManagementService.populateUserStoryTable();
+
+			return ResponseEntity.ok("UserStoryTabelle erfolgreich aufgefuellt");
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error beim anlegen der UserStoryTabelle");
+		}
+	}
 
 	
 	//curl -X PUT -H "Content-Type: application/json" -d "{\"userStoryId\": 1, \"description\": \"WURDEGAENDET\", \"title\": \" TitelGEAENDERT\", \"estimation\": 6}" http://localhost:8100/backlogManagement/updateUserStory

@@ -43,7 +43,4 @@ public class DbUserStoryRepository implements UserStoryRepository {
 	public boolean createUserStoryTable() {
 		return jdbcUserStoryEntityRepository.createTable();
 	}
-
-	
-
 }

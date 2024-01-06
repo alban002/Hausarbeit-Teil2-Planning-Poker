@@ -1,7 +1,6 @@
 package com.example.PlanningPoker_;
 
 import java.util.Collection;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 @RestController
 @RequestMapping("/planningPoker")
@@ -36,6 +33,17 @@ public class PlanningPokerController {
 		}
 	}
 	
+	//curl -X POST http://localhost:8090/planningPoker/fillUpUserStoryTable
+	@PostMapping("/fillUpUserStoryTable")
+	public ResponseEntity<String> fillUpUserStoryTable() {
+		try{
+			planningPokerService.populateUserStoryTable();
+			return ResponseEntity.ok("Tabelle erfolgreich erstellt oder bereits vorhanden");
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error beim anlegen der UserStoryTabelle");
+		}
+	}
+	
 	//curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/1?finalEstimationValue=8"
 	
 	@PostMapping("/endgueltigeEstimationById/{userStoryId}")
@@ -47,7 +55,7 @@ public class PlanningPokerController {
 	    
 	    switch (result) {
 	        case SUCCESS:
-	            return ResponseEntity.ok("Endgültige Estimation wurde auf " + finalEstimationValue + " festgelegt");
+	            return ResponseEntity.ok("Endgueltige Estimation wurde auf " + finalEstimationValue + " festgelegt");
 	        case PERMISSION_DENIED:
 	            return ResponseEntity.status(HttpStatus.FORBIDDEN)
 	                                 .body("Keine Berechtigung zum Festlegen einer endgueltigen Estimation");
