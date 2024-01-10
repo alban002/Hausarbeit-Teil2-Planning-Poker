@@ -1,4 +1,4 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

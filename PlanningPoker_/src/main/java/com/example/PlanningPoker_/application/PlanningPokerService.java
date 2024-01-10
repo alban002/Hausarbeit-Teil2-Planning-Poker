@@ -1,4 +1,6 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.application;
+
+import com.example.PlanningPoker_.adapter.FestlegungsversuchResult;
 
 public interface PlanningPokerService {
 	

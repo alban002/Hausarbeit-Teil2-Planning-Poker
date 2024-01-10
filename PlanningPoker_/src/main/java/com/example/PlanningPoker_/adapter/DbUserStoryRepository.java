@@ -1,9 +1,14 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.adapter;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.example.PlanningPoker_.application.UserStoryRepository;
+import com.example.PlanningPoker_.domain.UserStory;
+import com.example.PlanningPoker_.domain.UserStoryId;
+import com.example.PlanningPoker_.adapter.UserStoryEntity;
 
 
 @Component

@@ -1,4 +1,4 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.adapter;
 
 public enum FestlegungsversuchResult {
 	SUCCESS,

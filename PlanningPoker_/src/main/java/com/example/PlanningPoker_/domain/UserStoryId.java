@@ -1,4 +1,4 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.domain;
 
 public class UserStoryId {
 int id;

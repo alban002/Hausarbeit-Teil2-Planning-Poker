@@ -1,4 +1,4 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.adapter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;

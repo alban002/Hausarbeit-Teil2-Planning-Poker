@@ -1,8 +1,14 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.adapter;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.example.PlanningPoker_.application.MessageQueue;
+import com.example.PlanningPoker_.application.PlanningPokerApplicationService;
+import com.example.PlanningPoker_.application.PlanningPokerService;
+import com.example.PlanningPoker_.application.UserStoryRepository;
+import com.example.PlanningPoker_.domain.PlanningPokerDomainService;
 
 @Configuration
 public class BeanConfiguration {

@@ -1,4 +1,7 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.application;
+
+import com.example.PlanningPoker_.domain.UserStory;
+import com.example.PlanningPoker_.domain.UserStoryId;
 
 public interface UserStoryRepository {
 	public UserStory findById(UserStoryId userStoryID);

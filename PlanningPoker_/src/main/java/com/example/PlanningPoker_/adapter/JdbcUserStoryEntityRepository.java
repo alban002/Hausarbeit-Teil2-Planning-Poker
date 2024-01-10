@@ -1,4 +1,4 @@
-package com.example.PlanningPoker_;
+package com.example.PlanningPoker_.adapter;
 
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
