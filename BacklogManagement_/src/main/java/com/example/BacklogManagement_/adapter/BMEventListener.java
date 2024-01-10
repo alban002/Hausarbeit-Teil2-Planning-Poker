@@ -1,4 +1,4 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.adapter;
 
 import java.util.regex.Pattern;
 
@@ -7,6 +7,9 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
+import com.example.BacklogManagement_.application.BacklogManagementService;
+import com.example.BacklogManagement_.domain.UserStory;
+import com.example.BacklogManagement_.domain.UserStoryId;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

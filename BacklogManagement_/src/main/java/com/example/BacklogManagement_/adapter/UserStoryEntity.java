@@ -1,7 +1,10 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.adapter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+
+import com.example.BacklogManagement_.domain.UserStory;
+import com.example.BacklogManagement_.domain.UserStoryId;
 
 @Table("USERSTORY")
 public class UserStoryEntity {

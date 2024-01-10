@@ -1,4 +1,4 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

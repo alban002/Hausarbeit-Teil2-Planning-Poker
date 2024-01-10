@@ -1,9 +1,13 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.adapter;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.example.BacklogManagement_.application.UserStoryRepository;
+import com.example.BacklogManagement_.domain.UserStory;
+import com.example.BacklogManagement_.domain.UserStoryId;
 
 
 @Component

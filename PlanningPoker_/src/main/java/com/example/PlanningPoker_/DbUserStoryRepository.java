@@ -36,4 +36,9 @@ public class DbUserStoryRepository implements UserStoryRepository {
 	public boolean createUserStoryTable() {
 		return jdbcUserStoryEntityRepository.createTable();
 	}
+	
+	@Override
+	public void deleteById(int userStoryDBid) {
+		jdbcUserStoryEntityRepository.deleteById(userStoryDBid);
+	}
 }

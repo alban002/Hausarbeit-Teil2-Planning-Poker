@@ -1,4 +1,4 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.adapter;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.BacklogManagement_.application.BacklogManagementService;
+import com.example.BacklogManagement_.domain.UserStory;
 
 
 @RestController

@@ -1,4 +1,6 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.application;
+
+import com.example.BacklogManagement_.domain.UserStory;
 
 public interface BacklogManagementService {
 

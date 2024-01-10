@@ -1,4 +1,4 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.adapter;
 
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;

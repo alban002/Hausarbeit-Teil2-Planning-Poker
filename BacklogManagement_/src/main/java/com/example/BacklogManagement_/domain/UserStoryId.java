@@ -1,4 +1,4 @@
-package com.example.BacklogManagement_;
+package com.example.BacklogManagement_.domain;
 
 public class UserStoryId {
 int id;

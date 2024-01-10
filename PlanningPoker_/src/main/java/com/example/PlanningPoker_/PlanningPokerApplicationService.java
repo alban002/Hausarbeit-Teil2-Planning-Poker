@@ -1,7 +1,5 @@
 package com.example.PlanningPoker_;
 
-
-
 public class PlanningPokerApplicationService implements PlanningPokerService{
 
 	private UserStoryRepository userStoryRepository;
@@ -50,5 +48,19 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 		userStoryRepository.save(userStory2);
 		userStoryRepository.save(userStory3);
 	}
-
+	
+	@Override
+	public boolean deleteUserStoryById(int id) {
+		UserStory userStoryDB = userStoryRepository.findById(new UserStoryId(id));
+		
+ 		if (userStoryDB == null)
+ 		{
+ 			return false;
+ 			
+ 		}
+ 		else {
+ 			userStoryRepository.deleteById(id);
+			return true;
+		}
+	}
 }
