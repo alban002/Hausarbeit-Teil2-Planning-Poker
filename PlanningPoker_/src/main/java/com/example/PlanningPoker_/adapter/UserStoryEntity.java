@@ -3,6 +3,10 @@ package com.example.PlanningPoker_.adapter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.example.PlanningPoker_.domain.UserStory;
+import com.example.PlanningPoker_.domain.UserStoryId;
+
+
 @Table("USERSTORYPP")
 public class UserStoryEntity {
 	

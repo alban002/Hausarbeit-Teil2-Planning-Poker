@@ -3,6 +3,7 @@ package com.example.PlanningPoker_.adapter;
 import org.springframework.amqp.core.AmqpTemplate;
 
 import com.example.PlanningPoker_.application.MessageQueue;
+import com.example.PlanningPoker_.domain.UserStory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

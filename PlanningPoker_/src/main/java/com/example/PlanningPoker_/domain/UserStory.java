@@ -1,9 +1,14 @@
 package com.example.PlanningPoker_.domain;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserStory {
+public class UserStory implements Serializable{
+	
+	//Kompatibilität der Serialisierung festhalten
+	private static final long serialVersionUID = 1L;
 	
 	UserStoryId userStoryId;
 	String title;

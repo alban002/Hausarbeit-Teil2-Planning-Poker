@@ -1,6 +1,7 @@
 package com.example.PlanningPoker_.application;
 
 import com.example.PlanningPoker_.adapter.FestlegungsversuchResult;
+import com.example.PlanningPoker_.adapter.KafkaProducerService;
 import com.example.PlanningPoker_.domain.PlanningPokerDomainService;
 import com.example.PlanningPoker_.domain.UserStory;
 import com.example.PlanningPoker_.domain.UserStoryId;
@@ -10,11 +11,13 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	private UserStoryRepository userStoryRepository;
 	private PlanningPokerDomainService planningPokerDomainService;
 	MessageQueue messageQueue;
+	KafkaProducerService kafkaProducerService;
 	
-	public PlanningPokerApplicationService (UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService, MessageQueue messageQueue) {
+	public PlanningPokerApplicationService (UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService, MessageQueue messageQueue, KafkaProducerService kafkaProducerService) {
 		this.userStoryRepository = userStoryRepository;
 		this.planningPokerDomainService = planningPokerDomainService;
 		this.messageQueue = messageQueue;
+		this.kafkaProducerService=kafkaProducerService;
 	}
 	
 	@Override
@@ -36,6 +39,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 
 	    //asynchroneKommunikation zum anderen Service ueber Rabbit MQ
 	    messageQueue.sendenRabbitMQ(userStory);
+	    // asynchrone Kommunikation zum anderen Service über Kafka
+	    //kafkaProducerService.sendUserStory(userStory);
+
 
 	    return FestlegungsversuchResult.SUCCESS;
 	}
