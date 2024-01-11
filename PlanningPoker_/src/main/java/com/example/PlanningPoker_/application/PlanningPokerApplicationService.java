@@ -38,9 +38,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	    userStoryRepository.save(userStory);
 
 	    //asynchroneKommunikation zum anderen Service ueber Rabbit MQ
-	    messageQueue.sendenRabbitMQ(userStory);
+	    //messageQueue.sendenRabbitMQ(userStory);
 	    // asynchrone Kommunikation zum anderen Service über Kafka
-	    //kafkaProducerService.sendUserStory(userStory);
+	    kafkaProducerService.sendUserStory(userStory);
 
 
 	    return FestlegungsversuchResult.SUCCESS;

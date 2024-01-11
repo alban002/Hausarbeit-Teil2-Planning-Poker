@@ -64,7 +64,7 @@ public UserStoryRepository userStoryRepository;
 
 	@Override
 	public void populateUserStoryTable() {
-		UserStory userStory1 = new UserStory("ERSTEBeschreibung","ZWEITERTitel", 2);
+		UserStory userStory1 = new UserStory("ERSTEBeschreibung","ERSTERTitel", 2);
 		UserStory userStory2 = new UserStory("ZWEITEBeschreibung","ZWEITERTitel", 8);
 		UserStory userStory3 = new UserStory("DRITTEBeschreibung","DRITTERTitel", 9);
 		userStoryRepository.save(userStory1);
