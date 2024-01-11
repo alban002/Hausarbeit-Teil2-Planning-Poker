@@ -10,10 +10,10 @@ public class UserStory implements Serializable{
 	//Kompatibilität der Serialisierung festhalten
 	private static final long serialVersionUID = 1L;
 	
-	UserStoryId userStoryId;
-	String title;
-	String description;
-	int finalEstimation;
+	private UserStoryId userStoryId;
+	private String title;
+	private String description;
+	private int finalEstimation;
 	
 	/*public UserStory(UserStoryId userStoryId, String description, String title, int finalEstimation) {
 		this.userStoryId = userStoryId;
@@ -54,7 +54,7 @@ public class UserStory implements Serializable{
 	}
 	
 	public String getTitle(){
-		return description;
+		return title;
 	}
 	
 	public void titelAnpassen (String title) {

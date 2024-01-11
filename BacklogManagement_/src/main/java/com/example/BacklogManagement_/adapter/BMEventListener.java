@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class BMEventListener {
 
 	private static final String MY_QUEUE_NAME = "ppQueue";
+    private static final String TOPIC= "response.exchange";
 
 	private BacklogManagementService backlogManagementService;
 
@@ -28,9 +29,7 @@ public class BMEventListener {
 	
 	@RabbitListener(queues = MY_QUEUE_NAME)
 	 public void listen(String message) {
-		 System.out.println("Geänderte UserStory ist angekommen: "+ message);
-		 
-		 try {
+ 		 try {
 		        ObjectMapper mapper = new ObjectMapper();
 		        JsonNode userStoryNode = mapper.readTree(message);
 		        //Werte aus dem JSON-Objekt extrahieren
@@ -41,6 +40,7 @@ public class BMEventListener {
 		        int finalEstimation = userStoryNode.get("finalEstimation").asInt();
 		        UserStory angekommeneUserStory= new UserStory(userStoryId, title, description, finalEstimation);
 
+		        System.out.println("RabbitMQ_INFO: UserStory mit ID "+ angekommeneUserStory.getUserStoryId().getId() + " von " + MY_QUEUE_NAME + " mit Topic "+ TOPIC + " angekommen");
 		        backlogManagementService.userStoryUpdaten(angekommeneUserStory);
 		        
 		    } catch (Exception e) {

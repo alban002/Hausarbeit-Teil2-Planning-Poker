@@ -9,9 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MessageQueueAdapter implements MessageQueue{
 	
-
+	
     public static final boolean NON_DURABLE = false;
     public static final String MY_QUEUE_NAME = "ppQueue";
+    
+    private static final String TOPIC= "response.exchange";
+    private static final String KEY= "routing.key";
     
     private final AmqpTemplate amqpTemplate;
     
@@ -22,11 +25,9 @@ public class MessageQueueAdapter implements MessageQueue{
     public boolean sendenRabbitMQ(Object domainEvent) {
     	
     	String payload = "";
+    	UserStory userStory = (UserStory)domainEvent;
     	
     	if (domainEvent != null) {
-    		
-    		UserStory userStory = (UserStory)domainEvent;
-    		
    		
     		ObjectMapper objectMapper = new ObjectMapper();
     		 
@@ -38,11 +39,12 @@ public class MessageQueueAdapter implements MessageQueue{
     			e.printStackTrace();
     			return false;
     		}
-    		
-    		System.out.println("DEBUG INFO Payload: "+ payload);
-    		
+  		
+   		
     	}
-    	amqpTemplate.convertAndSend("response.exchange", "routing.key" , payload);
+    	amqpTemplate.convertAndSend(TOPIC, KEY , payload);
+    	// Die Konstante TOPIC ist eine Exchange des Types Topic, wei  in der GUI unter Exchanges von RabbitMQ einsehbar ist
+    	System.out.println("RabbitMQ_INFO: UserStory mit ID "+ userStory.getUserStoryId().getUserStoryId() + " gesendet an " + MY_QUEUE_NAME + " mit Topic "+ TOPIC);
     	return true;  	
     }
 }

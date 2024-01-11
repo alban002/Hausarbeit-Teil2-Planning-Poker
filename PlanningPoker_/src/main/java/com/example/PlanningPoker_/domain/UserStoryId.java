@@ -1,7 +1,8 @@
 package com.example.PlanningPoker_.domain;
 
 public class UserStoryId {
-int id;
+	
+	private int id;
 
 	
 	public UserStoryId(int id) {

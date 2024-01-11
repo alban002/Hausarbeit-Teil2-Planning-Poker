@@ -23,6 +23,7 @@ public class KafkaProducerService {
         try {
             String message = objectMapper.writeValueAsString(userStory);
             kafkaTemplate.send(TOPIC, message);
+            System.out.println("KAFKA_PRODUCER_INFO: UserStory mit ID "+ userStory.getUserStoryId().getUserStoryId() + " gesendet an TOPIC " + TOPIC);
         } catch (Exception e) {
             System.out.println("Could not send UserStory to Kafka");
             e.printStackTrace();

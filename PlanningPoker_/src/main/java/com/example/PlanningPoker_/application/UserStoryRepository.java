@@ -7,5 +7,5 @@ public interface UserStoryRepository {
 	public UserStory findById(UserStoryId userStoryID);
 	public void save(UserStory userStory);
 	public boolean createUserStoryTable();
-	void deleteById(int userStoryDBid);
+	public void deleteById(int userStoryDBid);
 }

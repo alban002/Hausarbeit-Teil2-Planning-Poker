@@ -10,8 +10,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 
 	private UserStoryRepository userStoryRepository;
 	private PlanningPokerDomainService planningPokerDomainService;
+	private KafkaProducerService kafkaProducerService;
+	
 	MessageQueue messageQueue;
-	KafkaProducerService kafkaProducerService;
 	
 	public PlanningPokerApplicationService (UserStoryRepository userStoryRepository, PlanningPokerDomainService planningPokerDomainService, MessageQueue messageQueue, KafkaProducerService kafkaProducerService) {
 		this.userStoryRepository = userStoryRepository;
@@ -20,8 +21,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 		this.kafkaProducerService=kafkaProducerService;
 	}
 	
+	//Natuerlich waere es auch moeglich einen weiteren Parameter aufzunehmen, jedoch wollten wir beide MessageBroker ueber zwei separate Controller ansprechen
 	@Override
-	public FestlegungsversuchResult endgueltigeEstimationFestlegen(int userStoryId, int finalEstimation) {
+	public FestlegungsversuchResult endgueltigeEstimationFestlegenKafka(int userStoryId, int finalEstimation) {
 	    boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen();
 
 	    if (!istBerechtigt) {
@@ -37,11 +39,33 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	    userStory.setFinalEstimation(finalEstimation);
 	    userStoryRepository.save(userStory);
 
-	    //asynchroneKommunikation zum anderen Service ueber Rabbit MQ
-	    //messageQueue.sendenRabbitMQ(userStory);
 	    // asynchrone Kommunikation zum anderen Service über Kafka
 	    kafkaProducerService.sendUserStory(userStory);
 
+
+	    return FestlegungsversuchResult.SUCCESS;
+	}
+	
+	@Override
+	public FestlegungsversuchResult endgueltigeEstimationFestlegenRabbitMQ(int userStoryId, int finalEstimation) {
+		boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen();
+
+	    if (!istBerechtigt) {
+	        return FestlegungsversuchResult.PERMISSION_DENIED;
+	    }
+
+	    UserStory userStory = userStoryRepository.findById(new UserStoryId(userStoryId));
+
+	    if (userStory == null) {
+	        return FestlegungsversuchResult.USER_STORY_NOT_FOUND;
+	    }
+
+	    userStory.setFinalEstimation(finalEstimation);
+	    userStoryRepository.save(userStory);
+
+	    //asynchroneKommunikation zum anderen Service ueber Rabbit MQ
+	    messageQueue.sendenRabbitMQ(userStory);
+	    System.out.println("");
 
 	    return FestlegungsversuchResult.SUCCESS;
 	}

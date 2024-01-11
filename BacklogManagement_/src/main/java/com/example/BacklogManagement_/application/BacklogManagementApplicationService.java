@@ -6,7 +6,7 @@ import com.example.BacklogManagement_.domain.UserStoryId;
 public class BacklogManagementApplicationService implements BacklogManagementService {
 
 //Genutzte Implementation ist  DbUserStoryRepository
-public UserStoryRepository userStoryRepository;
+private UserStoryRepository userStoryRepository;
 	
 	public BacklogManagementApplicationService(UserStoryRepository userStoryRepository) {
         this.userStoryRepository = userStoryRepository;
@@ -28,9 +28,9 @@ public UserStoryRepository userStoryRepository;
  		}
  		else {
  			userStoryRepository.save(updatedUserStory);
- 			System.out.println("USER STORY mit ID" + updatedUserStory.getUserStoryId().getId()+ "wurde veraentert in Datenbank");
+ 			System.out.println("H2_INFO: UserStory mit ID " + updatedUserStory.getUserStoryId().getId()+ " wurde veraendert in Datenbank");
 			return true; 		
-			}
+		}
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public UserStoryRepository userStoryRepository;
 	 		userStoryRepository.save(newUserStory);
 	 		
 			return true; 		
-		}
+	}
 
 	@Override
 	public UserStory getUserStoryById(int id) {

@@ -32,7 +32,7 @@ docker run -d --hostname rabbit-host  --name rabbitmq-container -p 15672:15672 -
 	
 **Kafka:**
 docker run -d --hostname zookeeper-host --name zookeeper-container -p 2181:2181 zookeeper
-docker run -d --hostname kafka-host --name kafka-container -p 9092:9092 --env KAFKA_LISTENERS=PLAINTEXT://:9092 --env KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 --env KAFKA_ZOOKEEPER_CONNECT=zookeeper-host:2181 --link zookeeper-container:zookeeper-host wurstmeister/kafka
+docker run -d --hostname kafka-host --name kafka-container -p 9093:9093 --env KAFKA_LISTENERS=PLAINTEXT://:9093 --env KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093 --env KAFKA_ZOOKEEPER_CONNECT=zookeeper-host:2181 --link zookeeper-container:zookeeper-host wurstmeister/kafka
 	
 ### 2. H2 Datenbank starten
 	
@@ -66,15 +66,18 @@ Die Initialen UserStoryTabellen sehen wie folgt aus
 	
 ### 5. Asynchrone Kommunikation der beiden Microservices testen
 	
-Die asynchrone Kommunikation der beiden Microservices kann mit Hilfe des folgenden curl Befehls getestet werden:
-	
-curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE" 
+Die asynchrone Kommunikation der beiden Microservices kann mit Hilfe der folgenden curl Befehls getestet werden:
+
+RabbitMQ:	
+curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
+
+Kafka:
+curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
 	
 **Hinweis**
-Der im Beispiel angegebene curl Befehl muss an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE" mit eigenen Werten versehen werden.
+Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE"  eigene Werten eingesetzt.
 Die Berechtigung zum aendern der FinalEstimation wird nicht in unserem Ausschnitt nicht durch eine tatsaechliche Ueberpruefung der Teilnehmerrolle erhoben.
-Stattdessen wird sie mit hilfe einer 50% Wahrscheinlichkeit fuer jeden Fall (Berechtigung liegt vor/ Keine Berechtigung) bestimmt.
-	
+Stattdessen wird sie mit hilfe einer 50% Wahrscheinlichkeit fuer jeden Fall (Berechtigung liegt vor/ Keine Berechtigung) bestimmt.	
 	
 ### 6. Erwartete Ergebnisse
 	

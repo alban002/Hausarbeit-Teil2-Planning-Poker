@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserStory {
 	
-	UserStoryId userStoryId;
-	String description;
-	String title;
-	int estimation;
+	private UserStoryId userStoryId;
+	private String description;
+	private String title;
+	private int estimation;
 	
 	//Jackson-Annotationen verwenden, um dem Deserialisierer mitzuteilen, welchen Konstruktor er verwenden soll
 	@JsonCreator
@@ -43,7 +43,7 @@ public class UserStory {
 	}
 	
 	public String getTitle(){
-		return description;
+		return title;
 	}
 	
 	public void titelAnpassen (String title) {

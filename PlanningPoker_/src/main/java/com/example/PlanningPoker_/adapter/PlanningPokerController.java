@@ -49,14 +49,41 @@ public class PlanningPokerController {
 		}
 	}
 	
-	//curl -X POST "http://localhost:8090/planningPoker/endgueltigeEstimationById/1?finalEstimationValue=8"
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/1?finalEstimationValue=8"
 	
-	@PostMapping("/endgueltigeEstimationById/{userStoryId}")
-	public ResponseEntity<String> endgueltigeEstimationById(
+	@PostMapping("/finalEstimationByIdKafka/{userStoryId}")
+	public ResponseEntity<String> finalEstimationByIdKafka(
 	        @PathVariable int userStoryId,
 	        @RequestParam("finalEstimationValue") int finalEstimationValue) {
 	    
-	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegen(userStoryId, finalEstimationValue);
+	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegenKafka(userStoryId, finalEstimationValue);
+	    
+	    switch (result) {
+	        case SUCCESS:
+	            return ResponseEntity.ok("Endgueltige Estimation wurde auf " + finalEstimationValue + " festgelegt");
+	        case PERMISSION_DENIED:
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+	                                 .body("Keine Berechtigung zum Festlegen einer endgueltigen Estimation");
+	        case USER_STORY_NOT_FOUND:
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("UserStory mit ID " + userStoryId + " nicht gefunden");
+	        case OTHER_ERROR:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	        default:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	    }
+	}
+	
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/1?finalEstimationValue=8"
+	
+	@PostMapping("/finalEstimationByIdRabbitMQ/{userStoryId}")
+	public ResponseEntity<String> finalEstimationByIdRabbitMQ(
+	        @PathVariable int userStoryId,
+	        @RequestParam("finalEstimationValue") int finalEstimationValue) {
+	    
+	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegenRabbitMQ(userStoryId, finalEstimationValue);
 	    
 	    switch (result) {
 	        case SUCCESS:

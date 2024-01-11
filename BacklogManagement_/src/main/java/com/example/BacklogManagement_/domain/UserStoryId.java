@@ -1,7 +1,8 @@
 package com.example.BacklogManagement_.domain;
 
 public class UserStoryId {
-int id;
+	
+	private int id;
 
 	
 	public UserStoryId(int id) {

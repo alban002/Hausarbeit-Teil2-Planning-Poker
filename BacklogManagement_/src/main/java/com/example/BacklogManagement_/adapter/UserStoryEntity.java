@@ -16,10 +16,10 @@ public class UserStoryEntity {
 		    ESTIMATION INT
 		); */
 	@Id
-	int userStoryId; //Spalte in Datenbank muss USER_STORY_ID genannt werden und AUTO_INCREMENT aktiviert sein
-	String description;
-	String title;
-	int estimation;
+	private int userStoryId; //Spalte in Datenbank muss USER_STORY_ID genannt werden und AUTO_INCREMENT aktiviert sein
+	private String description;
+	private String title;
+	private int estimation;
 	
 	public UserStoryEntity() {
 		

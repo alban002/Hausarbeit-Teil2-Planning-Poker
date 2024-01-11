@@ -28,10 +28,10 @@ public class KafkaConsumerService {
             String description = jsonNode.get("description").asText();
             int finalEstimation = jsonNode.get("estimation").asInt();
             UserStory userStory = new UserStory(userStoryId, title, description, finalEstimation);
-            System.out.println("USERSTORY MIT ID " + userStoryId.getId() + " angekommen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("KAFKA_CONSUMER_INFO: UserStory mit ID " + userStoryId.getId() + " angekommen");
             backlogManagementService.userStoryUpdaten(userStory);
         } catch (Exception e) {
-            throw new RuntimeException("Could not deserialize UserStory from Kafka message", e);
+        	System.out.println("KAFKA_CONSUMER_INFO: UserStory konnte nicht deserialisiert werden");
         }
     }
 }
