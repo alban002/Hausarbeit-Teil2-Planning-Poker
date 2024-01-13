@@ -28,17 +28,21 @@ asyncron kommunizieren, um dieses ueber die Aenderung zu informieren, damit dies
 Falls diese noch nicht auf dem zu testenden Gerät gepulled wurden, geht dies mit Hilfe der Befehle:
 	
 **RabbitMQ:**
-docker run -d --hostname rabbit-host  --name rabbitmq-container -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+- docker run -d --hostname rabbit-host  --name rabbitmq-container -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 	
 **Kafka:**
-docker run -d --hostname zookeeper-host --name zookeeper-container -p 2181:2181 zookeeper
-docker run -d --hostname kafka-host --name kafka-container -p 9093:9093 --env KAFKA_LISTENERS=PLAINTEXT://:9093 --env KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093 --env KAFKA_ZOOKEEPER_CONNECT=zookeeper-host:2181 --link zookeeper-container:zookeeper-host wurstmeister/kafka
+- docker run -d --hostname zookeeper-host --name zookeeper-container -p 2181:2181 zookeeper
+- docker run -d --hostname kafka-host --name kafka-container -p 9093:9093 --env KAFKA_LISTENERS=PLAINTEXT://:9093 --env KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093 --env KAFKA_ZOOKEEPER_CONNECT=zookeeper-host:2181 --link zookeeper-container:zookeeper-host wurstmeister/kafka
 	
 ### 2. H2 Datenbank starten
 	
 **Hinweis:**
 Benutzer, die das Mircoservices Initial ausführen, müssen vorher 2 neue Datenbanken anlegen. 
-Das bedeutet, es muss eine "jdbc:h2:~/database/BacklogManagement" sowie eine "jdbc:h2:~/database/PlanningPoker" Datenbank erstellt werden. 
+Das bedeutet, es muss eine 
+**"jdbc:h2:~/database/BacklogManagement"**
+sowie eine 
+**"jdbc:h2:~/database/PlanningPoker"**
+Datenbank erstellt werden. 
 Die .mv Datein sind in unserem Fall somit in "C:\Benutzer\Benutzername\database" abgelegt.
 	
 ### 3. Microservices starten
@@ -50,10 +54,10 @@ Diese können zum Beispiel über "Debug as --> Java Application" gestartet werde
 	
 Mit Hilfe der folgenden curl Befehle können die Tabellen erstellt und mit Testdaten aufgefüllt werden:
 	
-curl -X POST http://localhost:8100/backlogManagement/createUserStoryTable
-curl -X POST http://localhost:8100/backlogManagement/fillUpUserStoryTable
-curl -X POST http://localhost:8090/planningPoker/createUserStoryTable
-curl -X POST http://localhost:8090/planningPoker/fillUpUserStoryTable
+- curl -X POST http://localhost:8100/backlogManagement/createUserStoryTable
+- curl -X POST http://localhost:8100/backlogManagement/fillUpUserStoryTable
+- curl -X POST http://localhost:8090/planningPoker/createUserStoryTable
+- curl -X POST http://localhost:8090/planningPoker/fillUpUserStoryTable
 	
 Die Initialen UserStoryTabellen sehen wie folgt aus
 	
@@ -66,17 +70,17 @@ Die Initialen UserStoryTabellen sehen wie folgt aus
 	
 ### 5. Asynchrone Kommunikation der beiden Microservices testen
 	
-Die asynchrone Kommunikation der beiden Microservices kann mit Hilfe der folgenden curl Befehls getestet werden:
+Die asynchrone Kommunikation der beiden Microservices kann mit Hilfe der folgenden curl Befehle getestet werden:
 
 RabbitMQ:	
-curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
+- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
 
 Kafka:
-curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
+- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
 	
 **Hinweis**
-Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE"  eigene Werten eingesetzt.
-Die Berechtigung zum aendern der FinalEstimation wird nicht in unserem Ausschnitt nicht durch eine tatsaechliche Ueberpruefung der Teilnehmerrolle erhoben.
+Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE"  eigene Werten eingesetzt werden.
+Die Berechtigung zum aendern der FinalEstimation wird in unserem Ausschnitt nicht durch eine tatsaechliche Ueberpruefung der Teilnehmerrolle erhoben.
 Stattdessen wird sie mit hilfe einer 50% Wahrscheinlichkeit fuer jeden Fall (Berechtigung liegt vor/ Keine Berechtigung) bestimmt.	
 	
 ### 6. Erwartete Ergebnisse
