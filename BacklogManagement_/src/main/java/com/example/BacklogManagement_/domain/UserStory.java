@@ -1,5 +1,7 @@
 package com.example.BacklogManagement_.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +11,14 @@ public class UserStory {
 	private String description;
 	private String title;
 	private int estimation;
+	
+	public static int berechneGesamteEstimation(List<UserStory> userStories) {
+        int gesamteEstimation = 0;
+        for (UserStory userStory : userStories) {
+            gesamteEstimation += userStory.getEstimation();
+        }
+        return gesamteEstimation;
+    }
 	
 	//Jackson-Annotationen verwenden, um dem Deserialisierer mitzuteilen, welchen Konstruktor er verwenden soll
 	@JsonCreator
@@ -67,4 +77,5 @@ public class UserStory {
 	public int hashCode() {
 		return userStoryId.getId(); 
 	}
+
 }
