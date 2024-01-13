@@ -9,5 +9,4 @@ class PlanningPokerApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

@@ -49,9 +49,82 @@ public class PlanningPokerController {
 		}
 	}
 	
-	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/1?finalEstimationValue=8"
+	//Befehl fuer Test mit Rolle ProductOwner
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/1?finalEstimationValue=8&participantRole=ProductOwner"
+	//Oder fuer: RegularParticipant
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/1?finalEstimationValue=8&participantRole=RegularParticipant"
+	
+	@PostMapping("/finalEstimationByIdRabbitMQ/{userStoryId}")
+	public ResponseEntity<String> finalEstimationByIdRabbitMQ(
+	        @PathVariable int userStoryId,
+	        @RequestParam("finalEstimationValue") int finalEstimationValue,
+	        @RequestParam("participantRole") String participantRole) {
+
+	    if (!participantRole.equals("ProductOwner") && !participantRole.equals("RegularParticipant")) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                             .body("Ungültige Teilnehmerrolle: " + participantRole);
+	    }
+
+	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegenRabbitMQ(userStoryId, finalEstimationValue, participantRole);
+
+	    switch (result) {
+	        case SUCCESS:
+	            return ResponseEntity.ok("Endgueltige Estimation wurde auf " + finalEstimationValue + " festgelegt");
+	        case PERMISSION_DENIED:
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+	                                 .body("Keine Berechtigung zum Festlegen einer endgueltigen Estimation");
+	        case USER_STORY_NOT_FOUND:
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("UserStory mit ID " + userStoryId + " nicht gefunden");
+	        case OTHER_ERROR:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	        default:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	    }
+	}
+	
+	//Befehl fuer Test mit Rolle ProductOwner
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/1?finalEstimationValue=8&participantRole=ProductOwner"
+	//Oder fuer: RegularParticipant
+	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/1?finalEstimationValue=8&participantRole=RegularParticipant"
+
 	
 	@PostMapping("/finalEstimationByIdKafka/{userStoryId}")
+	public ResponseEntity<String> finalEstimationByIdKafka(
+	        @PathVariable int userStoryId,
+	        @RequestParam("finalEstimationValue") int finalEstimationValue,
+	        @RequestParam("participantRole") String participantRole) {
+
+	    if (!participantRole.equals("ProductOwner") && !participantRole.equals("RegularParticipant")) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                             .body("Ungültige Teilnehmerrolle: " + participantRole);
+	    }
+
+	    FestlegungsversuchResult result = planningPokerService.endgueltigeEstimationFestlegenKafka(userStoryId, finalEstimationValue, participantRole);
+
+	    switch (result) {
+	        case SUCCESS:
+	            return ResponseEntity.ok("Endgueltige Estimation wurde auf " + finalEstimationValue + " festgelegt");
+	        case PERMISSION_DENIED:
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+	                                 .body("Keine Berechtigung zum Festlegen einer endgueltigen Estimation");
+	        case USER_STORY_NOT_FOUND:
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("UserStory mit ID " + userStoryId + " nicht gefunden");
+	        case OTHER_ERROR:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	        default:
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
+	    }
+	}
+
+
+	
+	/*@PostMapping("/finalEstimationByIdKafka/{userStoryId}")
 	public ResponseEntity<String> finalEstimationByIdKafka(
 	        @PathVariable int userStoryId,
 	        @RequestParam("finalEstimationValue") int finalEstimationValue) {
@@ -74,11 +147,9 @@ public class PlanningPokerController {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
 	    }
-	}
-	
-	//curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/1?finalEstimationValue=8"
-	
-	@PostMapping("/finalEstimationByIdRabbitMQ/{userStoryId}")
+	}*/
+
+	/*@PostMapping("/finalEstimationByIdRabbitMQ/{userStoryId}")
 	public ResponseEntity<String> finalEstimationByIdRabbitMQ(
 	        @PathVariable int userStoryId,
 	        @RequestParam("finalEstimationValue") int finalEstimationValue) {
@@ -101,7 +172,7 @@ public class PlanningPokerController {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                                 .body("Ein unerwarteter Fehler ist aufgetreten");
 	    }
-	}
+	}*/
 	
 	//curl -X DELETE "http://localhost:8090/planningPoker/deleteUserStoryById/3"
 	@DeleteMapping("/deleteUserStoryById/{id}")

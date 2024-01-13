@@ -23,8 +23,8 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	
 	//Natuerlich waere es auch moeglich einen weiteren Parameter aufzunehmen, jedoch wollten wir beide MessageBroker ueber zwei separate Controller ansprechen
 	@Override
-	public FestlegungsversuchResult endgueltigeEstimationFestlegenKafka(int userStoryId, int finalEstimation) {
-	    boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen();
+	public FestlegungsversuchResult endgueltigeEstimationFestlegenKafka(int userStoryId, int finalEstimation, String rolle) {
+	    boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen(rolle);
 
 	    if (!istBerechtigt) {
 	        return FestlegungsversuchResult.PERMISSION_DENIED;
@@ -47,8 +47,8 @@ public class PlanningPokerApplicationService implements PlanningPokerService{
 	}
 	
 	@Override
-	public FestlegungsversuchResult endgueltigeEstimationFestlegenRabbitMQ(int userStoryId, int finalEstimation) {
-		boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen();
+	public FestlegungsversuchResult endgueltigeEstimationFestlegenRabbitMQ(int userStoryId, int finalEstimation, String Rolle) {
+		boolean istBerechtigt = planningPokerDomainService.berechtigungPruefen(Rolle);
 
 	    if (!istBerechtigt) {
 	        return FestlegungsversuchResult.PERMISSION_DENIED;
