@@ -9,5 +9,4 @@ public class BacklogManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BacklogManagementApplication.class, args);
 	}
-
 }

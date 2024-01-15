@@ -6,7 +6,6 @@ import org.springframework.data.relational.core.mapping.Table;
 import com.example.PlanningPoker_.domain.UserStory;
 import com.example.PlanningPoker_.domain.UserStoryId;
 
-
 @Table("USERSTORYPP")
 public class UserStoryEntity {
 	
@@ -23,27 +22,19 @@ public class UserStoryEntity {
 	private String title;
 	private int finalEstimation; //Hier ebenfalls mit Unterstrich FINAL_ESTIMATION 
 	
-	public UserStoryEntity() {
-		
-	}
+	public UserStoryEntity() {}
 	
 	public int getUserStoryId() {
 		return userStoryId;
 	}
 
-
-
 	public void setUserStoryId(int userStoryId) {
 		this.userStoryId = userStoryId;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 
 	public void setDescription(String description) {
 		this.description = description;
@@ -53,22 +44,17 @@ public class UserStoryEntity {
 		return description;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public int getFinalEstimation() {
 		return finalEstimation;
 	}
 
-
-
 	public void setFinalEstimation(int estimation) {
 		this.finalEstimation = estimation;
 	}
-
 
 	public UserStoryEntity (UserStory userStory) {
 		if(userStory.getUserStoryId()!=null) {
@@ -81,10 +67,5 @@ public class UserStoryEntity {
 	
 	public UserStory toDomain() {
 		return new UserStory (new UserStoryId (userStoryId), description, title, finalEstimation);
-		
-	}
-	
-	
-	
-	
+	}	
 }

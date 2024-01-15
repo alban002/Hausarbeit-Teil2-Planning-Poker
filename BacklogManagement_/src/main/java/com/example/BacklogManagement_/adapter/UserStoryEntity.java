@@ -83,8 +83,4 @@ public class UserStoryEntity {
 		return new UserStory (new UserStoryId (userStoryId), description, title, estimation);
 		
 	}
-	
-	
-	
-	
 }

@@ -14,13 +14,7 @@ public class UserStory implements Serializable{
 	private String title;
 	private String description;
 	private int finalEstimation;
-	
-	/*public UserStory(UserStoryId userStoryId, String description, String title, int finalEstimation) {
-		this.userStoryId = userStoryId;
-		this.description = description;
-		this.title = title;
-		this.finalEstimation = finalEstimation;
-	}*/
+
 	
 	//Jackson-Annotationen verwenden, um dem Deserialisierer mitzuteilen, welchen Konstruktor er verwenden soll
 	@JsonCreator
