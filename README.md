@@ -73,18 +73,17 @@ Die initialen UserStoryTabellen sehen wie folgt aus
 	
 ### 5. Asynchrone Kommunikation der beiden Microservices testen
 	
-Die asynchrone Kommunikation der beiden Microservices kann mit Hilfe der folgenden curl Befehle getestet werden:
+Die asynchrone Kommunikation der beiden Microservices kann mithilfe der folgenden curl Befehle getestet werden:
 
 RabbitMQ:	
-- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
+- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdRabbitMQ/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE&participantRole=ROLE"
 
 Kafka:
-- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
+- curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE&participantRole=ROLE"
 	
-**Hinweis:**
-Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE"  eigene Werten eingesetzt werden.
-Die Berechtigung zum aendern der FinalEstimation wird in unserem Ausschnitt nicht durch eine tatsaechliche Ueberpruefung der Teilnehmerrolle erhoben.
-Stattdessen wird sie mit hilfe einer 50% Wahrscheinlichkeit fuer jeden Fall (Berechtigung liegt vor/ Keine Berechtigung) bestimmt.	
+**Hinweis**
+Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID", "NEWESTIMATIONVALUE" und "ROLE" eigenen Werten eingesetzt werden.
+Nur die Rolle "ProductOwner" hat die Berechtigung die finalEstimation zu aendern. Der "RegularParticipant" nicht.
 	
 ### 6. Erwartete Ergebnisse
 	
