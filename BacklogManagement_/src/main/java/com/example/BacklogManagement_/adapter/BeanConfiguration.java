@@ -20,10 +20,10 @@ public class BeanConfiguration {
 	 
 	 // Definiert eine Bean für den BMEventListener
 	 @Bean
-	 BMEventListener eventListener(BacklogManagementService backlogManagementService) {
+	 RabbitEventListener eventListener(BacklogManagementService backlogManagementService) {
 	        // Erstellt und gibt eine neue Instanz des BMEventListener zurück
 	        // und injiziert den BacklogManagementService in diesen Listener
-			return new BMEventListener(backlogManagementService);
+			return new RabbitEventListener(backlogManagementService);
 	 };
 	 
 	 // Definiert eine Bean für das UserStoryRepository

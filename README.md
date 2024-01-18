@@ -1,11 +1,11 @@
 # Hausarbeit-Teil2-Planning-Poker
-Das Repository enthaelt die Codebasis sowie andere relevante Daten bezüglich Teil 2 der Hausarbeit
+Das Repository enthaelt die Codebasis sowie andere relevante Daten bezüglich Teil 2 der Hausarbeit. <br>
 **Das Strategic Design ergab zwei Bounded Contexts**: BacklogManagement und PlanningPoker, die  in UML modelliert sind.
 
 **Tactical-Design**:
 Dem Backlogmanagement schreiben wir verwaltende Funktionalitaeten zu:
 - Das Hinzufuegen und Loeschen von UserStorys
-- Das Bearbeiten von UserStorys hinsichtlich Titel, Beschreibung, Akzeptanzkriterien usw.
+- Das Bearbeiten von UserStorys hinsichtlich Titel, Beschreibung, Akzeptanzkriterien usw. <br>
 Fernere Funktionalitäten, die so nicht in der Aufgabenstellung definiert sind koennten sein:
 - Das Zuweisen zu einem für die Implementierung zustaendigen Mitarbeiters
 - Das Zuweisen zu einem für das Review zuständigen Mitarbeiters
@@ -19,7 +19,7 @@ PlanningPoker soll die Funktionalitäten des Schaetzungsprozesses von UserStorys
 - Alle Teilnehmer einer Runde sollen eine Schaetzung für eine bestimmte Userstory abgeben koennen
 - Der Product Owner soll die endgeultige Schaetzung einer Userstory festlegen koennen (In der Realitaet im Anschluss auf eine Diskussionsrunde)
 
-Immer dann, wenn eine finale Schaetzung durch den Product Owner festgelegt wurde soll der PlanningPoker Microservice mit dem Backlogmanagement
+Immer dann, wenn eine finale Schaetzung durch den Product Owner festgelegt wurde soll der PlanningPoker Microservice mit dem BacklogManagement
 asyncron kommunizieren, um dieses ueber die Aenderung zu informieren, damit dieses diese uebernehmen kann.
 
 ## **Anleitung zum Starten der beiden Microservices**:
@@ -29,6 +29,9 @@ Falls diese noch nicht auf dem zu testenden Gerät gepulled wurden, geht dies mi
 	
 **RabbitMQ:**
 - docker run -d --hostname rabbit-host  --name rabbitmq-container -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+	
+**Hinweis:**
+Bei RabbitMQ muss initial auch eine Exchange mit dem Namen "response.exchange" des Typs "topic" angelegt werden und mit dem Key "routing.key" an die Queue "ppQueue" gebindet werden
 	
 **Kafka:**
 - docker run -d --hostname zookeeper-host --name zookeeper-container -p 2181:2181 zookeeper
@@ -59,7 +62,7 @@ Mit Hilfe der folgenden curl Befehle können die Tabellen erstellt und mit Testd
 - curl -X POST http://localhost:8090/planningPoker/createUserStoryTable
 - curl -X POST http://localhost:8090/planningPoker/fillUpUserStoryTable
 	
-Die Initialen UserStoryTabellen sehen wie folgt aus
+Die initialen UserStoryTabellen sehen wie folgt aus
 	
 | User_Story_ID | Description          | Titel        | Estimation |
 |----|-----------------------|--------------|------|
@@ -78,7 +81,7 @@ RabbitMQ:
 Kafka:
 - curl -X POST "http://localhost:8090/planningPoker/finalEstimationByIdKafka/USERSTORYID?finalEstimationValue=NEWESTIMATIONVALUE"
 	
-**Hinweis**
+**Hinweis:**
 Bei den im Beispiel angegebene curl-Befehlen muessen an den Stellen "USERSTROYID" und "NEWESTIMATIONVALUE"  eigene Werten eingesetzt werden.
 Die Berechtigung zum aendern der FinalEstimation wird in unserem Ausschnitt nicht durch eine tatsaechliche Ueberpruefung der Teilnehmerrolle erhoben.
 Stattdessen wird sie mit hilfe einer 50% Wahrscheinlichkeit fuer jeden Fall (Berechtigung liegt vor/ Keine Berechtigung) bestimmt.	
@@ -90,6 +93,3 @@ Die BacklogManagement listener hören die entsprechende queue ab. Sobald eine Me
 	
 Mit Hilfe des curl Befehls "curl -X GET http://localhost:8100/backlogManagement/getUserStoryById/USERSTORYID" kann getestet werden, ob die "EstimationValue" in der Datenbank geändert wurde.
 Auch hier muss der curl Befehl an der Stelle "USERSTROYID" mit eigenen Werten versehen werden.
-		
-
-	

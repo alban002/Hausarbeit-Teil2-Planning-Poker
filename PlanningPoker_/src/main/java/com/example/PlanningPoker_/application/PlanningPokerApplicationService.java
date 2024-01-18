@@ -79,9 +79,9 @@ public class PlanningPokerApplicationService implements PlanningPokerService {
 
     // Methode zur Befüllung der UserStory-Tabelle mit Beispieldaten
     public void populateUserStoryTable() {
-        UserStory userStory1 = new UserStory("ERSTEBeschreibung", "ERSTEBeschreibung", 2);
-        UserStory userStory2 = new UserStory("ZWEITEBeschreibung", "ZWEITEBeschreibung", 8);
-        UserStory userStory3 = new UserStory("DRITTEBeschreibung", "DRITTEBeschreibung", 9);
+        UserStory userStory1 = new UserStory("ERSTEBeschreibung", "ERSTERTitel", 2);
+        UserStory userStory2 = new UserStory("ZWEITEBeschreibung", "ZWEITERTitel", 8);
+        UserStory userStory3 = new UserStory("DRITTEBeschreibung", "DRITTERTitel", 9);
         userStoryRepository.save(userStory1);
         userStoryRepository.save(userStory2);
         userStoryRepository.save(userStory3);

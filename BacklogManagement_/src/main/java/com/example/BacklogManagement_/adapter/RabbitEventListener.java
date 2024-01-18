@@ -1,42 +1,41 @@
 package com.example.BacklogManagement_.adapter;
 
-//Importiert die Pattern-Klasse für reguläre Ausdrücke
-import java.util.regex.Pattern; 
-
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 //Importiert die RabbitMQ-Listener-Annotation
-import org.springframework.amqp.rabbit.annotation.RabbitListener; 
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import com.example.BacklogManagement_.application.BacklogManagementService;
 import com.example.BacklogManagement_.domain.UserStory;
 import com.example.BacklogManagement_.domain.UserStoryId;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+//Importiert die JsonNode-Klasse für das Parsen von JSON
+import com.fasterxml.jackson.databind.JsonNode;
 //Importiert den ObjectMapper für JSON-Operationen
 import com.fasterxml.jackson.databind.ObjectMapper; 
-//Importiert die JsonNode-Klasse für das Parsen von JSON
-import com.fasterxml.jackson.databind.JsonNode; 
 
 // Klasse, die als Listener für RabbitMQ-Nachrichten dient
-public class BMEventListener {
+public class RabbitEventListener {
 
 	// Name der Queue, auf die der Listener hört
 	private static final String MY_QUEUE_NAME = "ppQueue"; 
 	// Name des Topics, unter dem die Nachrichten veröffentlicht werden
 	private static final String TOPIC= "response.exchange"; 
+	private static final String KEY= "routing.key"; 
 
     // 	Service für die Verarbeitung der UserStories
 	private BacklogManagementService backlogManagementService; 
 
-	public BMEventListener (BacklogManagementService backlogManagementService) {
+	public RabbitEventListener (BacklogManagementService backlogManagementService) {
 		// Konstruktor injiziert den BacklogManagementService
 		this.backlogManagementService = backlogManagementService; 
 	}
 	
 	// RabbitMQ Listener Methode, die auf Nachrichten von MY_QUEUE_NAME hört
-	@RabbitListener(queues = MY_QUEUE_NAME)
+	@RabbitListener(bindings = @QueueBinding(
+		    value = @Queue(value = MY_QUEUE_NAME, durable = "true"),
+		    exchange = @Exchange(value = TOPIC, type = "topic"),
+		    key = KEY))
 	public void listen(String message) {
  		 try {
  			 	// Erstellt eine Instanz von ObjectMapper
@@ -54,7 +53,7 @@ public class BMEventListener {
 		        UserStory angekommeneUserStory = new UserStory(userStoryId, title, description, finalEstimation);
 
 		        // Gibt eine Nachricht in der Konsole aus, dass eine UserStory angekommen ist
-		        System.out.println("RabbitMQ_INFO: UserStory mit ID " + angekommeneUserStory.getUserStoryId().getId() + " von " + MY_QUEUE_NAME + " mit Topic " + TOPIC + "angekommen");
+		        System.out.println("RabbitMQ_INFO: UserStory mit ID " + angekommeneUserStory.getUserStoryId().getId() + " von " + MY_QUEUE_NAME + " mit Topic " + TOPIC + " angekommen");
 		        // Ruft den Service auf, um die empfangene UserStory zu aktualisieren\r\n"
 		        backlogManagementService.userStoryUpdaten(angekommeneUserStory);
  		} catch (Exception e) {
