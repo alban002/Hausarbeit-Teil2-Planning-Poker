@@ -57,5 +57,4 @@ class BacklogManagementApplicationTests {
         Assertions.assertEquals("Neuer Titel", story.getTitle());
         Assertions.assertEquals(6, story.getEstimation());
     }
-
 }
