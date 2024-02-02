@@ -31,7 +31,7 @@ public class KafkaConsumerService {
             UserStoryId userStoryId = new UserStoryId(jsonNode.get("userStoryId").get("userStoryId").asInt());
             String title = jsonNode.get("title").asText();
             String description = jsonNode.get("description").asText();
-            int finalEstimation = jsonNode.get("estimation").asInt();
+            int finalEstimation = jsonNode.get("finalEstimation").asInt();
             
             // Erstelle ein UserStory-Objekt mit den extrahierten Informationen.
             UserStory userStory = new UserStory(userStoryId, title, description, finalEstimation);
