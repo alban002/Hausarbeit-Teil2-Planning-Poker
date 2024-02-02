@@ -1,14 +1,6 @@
 package com.example.PlanningPoker_.domain;
 
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class UserStory implements Serializable{
-	
-	//Kompatibilität der Serialisierung festhalten
-	private static final long serialVersionUID = 1L;
+public class UserStory{
 	
 	private UserStoryId userStoryId;
 	private String title;
@@ -16,12 +8,8 @@ public class UserStory implements Serializable{
 	private int finalEstimation;
 
 	
-	//Jackson-Annotationen verwenden, um dem Deserialisierer mitzuteilen, welchen Konstruktor er verwenden soll
-	@JsonCreator
-	public UserStory(@JsonProperty("userStoryId") UserStoryId userStoryId, 
-			@JsonProperty("description") String description,
-			@JsonProperty("title") String title,
-			@JsonProperty("estimation") int finalEstimation) {
+
+	public UserStory(UserStoryId userStoryId, String description,String title,int finalEstimation) {
 		this.userStoryId = userStoryId;
 		this.description = description;
 		this.title = title;

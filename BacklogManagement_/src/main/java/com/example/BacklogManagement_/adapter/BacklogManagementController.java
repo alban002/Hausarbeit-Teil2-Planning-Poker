@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 //Importiert Annotationen für die Webanbindung
 import org.springframework.web.bind.annotation.*; 
 //Importiert den Service
-import com.example.BacklogManagement_.application.BacklogManagementService; 
+import com.example.BacklogManagement_.application.BacklogManagementService;
+import com.example.BacklogManagement_.application.UserStoryDTO;
 //Importiert das UserStory-Modell
 import com.example.BacklogManagement_.domain.UserStory; 
 
@@ -59,8 +60,8 @@ public class BacklogManagementController {
 
 	// Methode zum Aktualisieren einer UserStory
 	@PutMapping("/updateUserStory")
-	public ResponseEntity<String> updateUserStory(@RequestBody UserStory updatedUserStory) {
-		boolean isUpdated = backlogManagementService.userStoryUpdaten(updatedUserStory); // Ruft den Service auf, um die UserStory zu aktualisieren
+	public ResponseEntity<String> updateUserStory(@RequestBody UserStoryDTO updatedUserStory) {
+		boolean isUpdated = backlogManagementService.userStoryUpdaten(updatedUserStory.fromDTOtoNormal()); // Ruft den Service auf, um die UserStory zu aktualisieren
 		if (isUpdated) {
 		// Sendet eine Erfolgsmeldung, wenn das Update erfolgreich war
 		return ResponseEntity.ok("Update von UserStory mit ID " + updatedUserStory.getUserStoryId().getId() + " erfolgreich!");
